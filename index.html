@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <header style="background-color: grey;">
+        <h1 class="text-center">Weather Dashboard</h1>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div id="search" class="col-4" style="background-color: grey;">
+                    <h2>Search for a city</h2>      
+                    <input type="text" class="col-8" id="txtCity">
+                    <button type="button" class="btn btn-primary col-3" onclick="getCity()">Search</button>
+                    <ul class="list-group">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                      </ul> <!--end of search list-->
+            </div> <!--end of search--> 
+            <div class="col-8" id="infoArea" style="background-color: hotpink;">
+                Hello world
+            </div> <!--end of info area-->
+        </div> <!--end of main row-->
+    </div> <!--end of container-->
+
+
+
+  <script>
+
+      
+     async function getCity(){
+        //var city = document.querySelector('#txtCity').value;
+        var cityApi = await fetch( 'http://api.openweathermap.org/data/2.5/weather?q=London&appid=c18d1c67b725426cb4da6690f0f0a919').then( r=>r.json() )
+        var cityLon = cityApi.coord.lon;
+        var cityLat = cityApi.coord.lat;
+        console.log("lon "+cityLon + " and lat " + cityLat);
+        getCityData(cityLon, cityLat);
+        // console.log(city);
+      }
+      function getCityData(lon, lat){
+
+      }
+  </script>
+</body>
+</html>
