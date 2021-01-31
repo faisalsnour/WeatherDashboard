@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <title>Weather Dashboard</title>
 </head>
 <body>
@@ -26,6 +27,13 @@
                       </ul> <!--end of search list-->
             </div> <!--end of search--> 
             <div class="col-8" id="infoArea" style="background-color: hotpink;">
+               <div class="row" style="border: 1px solid black; margin: 3px;">
+                   <h3><span id="cityName"></span> - <span id="dateNow"></span>  <img id="icon"></span></h3>
+                   <p>Temperature: <span id="temperature"></span></p>
+                   <p>Humidity: <span id="humidity"></span></p>
+                   <p>Wind Speed: <span id="windSpeed"></span></p>
+                   <p>UV Index: <span id="UVIndex"></span></p>
+               </div>
                 Hello world
             </div> <!--end of info area-->
         </div> <!--end of main row-->
@@ -34,20 +42,49 @@
 
 
   <script>
-
-      
+            
      async function getCity(){
-        //var city = document.querySelector('#txtCity').value;
-        var cityApi = await fetch( 'http://api.openweathermap.org/data/2.5/weather?q=London&appid=c18d1c67b725426cb4da6690f0f0a919').then( r=>r.json() )
+        var city = document.querySelector('#txtCity').value;
+        var cityApi = await fetch( `http://api.openweathermap.org/data/2.5/weather?q=${encodeURI(city)}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
         var cityLon = cityApi.coord.lon;
         var cityLat = cityApi.coord.lat;
-        console.log("lon "+cityLon + " and lat " + cityLat);
         getCityData(cityLon, cityLat);
         // console.log(city);
       }
-      function getCityData(lon, lat){
+      async function getCityData(lon, lat){
+          var cityDataApi = await fetch (`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
+          console.log(cityDataApi)
+          console.log(`Temperature = ${cityDataApi.current.temp}`)
+          console.log(`Humidity = ${cityDataApi.current.humidity}`)
+          console.log(`Wind speed = ${cityDataApi.current.wind_speed}`)
+          console.log(`UV index = ${cityDataApi.current.uvi}`)
+          console.log(`icon = ${cityDataApi.current.weather[0].icon}`)
+
+          var temperature = cityDataApi.current.temp;
+          var humadity = cityDataApi.current.humidity;
+          var windSpeed = cityDataApi.current.wind_speed;
+          var uvIndex = cityDataApi.current.uvi;
+          var icon = cityDataApi.current.weather[0].icon;
+
+          showMainData(temperature, humadity,windSpeed, uvIndex, icon)
+      }
+
+      function showMainData(temp, hum, wind, uv, icon){
+
+        var userCity = document.querySelector('#txtCity').value;
+
+        var dateNow = moment().format('MMMM Do YYYY');
+        document.querySelector('#dateNow').innerHTML = dateNow;
+
+        document.querySelector('#cityName').innerHTML = userCity;
+        document.querySelector('#temperature').innerHTML = temp
+        document.querySelector('#humidity').innerHTML = hum
+        document.querySelector('#windSpeed').innerHTML = wind
+        document.querySelector('#UVIndex').innerHTML = uv
+        document.querySelector('#icon').src = `http://openweathermap.org/img/wn/${icon}.png`
 
       }
+
   </script>
 </body>
 </html>
