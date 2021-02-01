@@ -10,8 +10,6 @@ var cities = [];
             console.log(`${cities[i]}`)
           }
       }
-
-
       // function to use the API and get lon & lat by the name of city
      async function getCity(){
 
@@ -184,8 +182,8 @@ var cities = [];
         document.querySelector('#lowerDash').classList.remove('d-none');
 
         var city = event.target.innerHTML;
-        document.querySelector('#txtCity').value = city
-        document.querySelector('#cityName').innerHTML = city
+        document.querySelector('#txtCity').value = city;
+        document.querySelector('#cityName').innerHTML = city;
         var cityApi = await fetch( `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(city)}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
         var cityLon = cityApi.coord.lon;
         var cityLat = cityApi.coord.lat;
