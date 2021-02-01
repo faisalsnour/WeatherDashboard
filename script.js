@@ -22,7 +22,7 @@ var cities = [];
         document.querySelector('#upperDash').classList.remove('d-none');
         document.querySelector('#lowerDash').classList.remove('d-none');
         
-        var cityApi = await fetch( `http://api.openweathermap.org/data/2.5/weather?q=${encodeURI(city)}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
+        var cityApi = await fetch( `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(city)}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
         var cityLon = cityApi.coord.lon;
         var cityLat = cityApi.coord.lat;
         getCityData(cityLon, cityLat);
@@ -99,15 +99,15 @@ var cities = [];
 
           showMainData(temperature, humadity,windSpeed, uvIndex, icon)
 
-          dayOne(dayOneForecast.dateOne, `http://openweathermap.org/img/wn/${dayOneForecast.icon}.png`, dayOneForecast.temp, dayOneForecast.humi)
+          dayOne(dayOneForecast.dateOne, `https://openweathermap.org/img/wn/${dayOneForecast.icon}.png`, dayOneForecast.temp, dayOneForecast.humi)
 
-          dayTwo(dayTwoForecast.dateTwo, `http://openweathermap.org/img/wn/${dayTwoForecast.icon}.png`, dayTwoForecast.temp, dayTwoForecast.humi)
+          dayTwo(dayTwoForecast.dateTwo, `https://openweathermap.org/img/wn/${dayTwoForecast.icon}.png`, dayTwoForecast.temp, dayTwoForecast.humi)
 
-          dayThree(dayThreeForecast.dateThree, `http://openweathermap.org/img/wn/${dayThreeForecast.icon}.png`, dayThreeForecast.temp, dayThreeForecast.humi)
+          dayThree(dayThreeForecast.dateThree, `https://openweathermap.org/img/wn/${dayThreeForecast.icon}.png`, dayThreeForecast.temp, dayThreeForecast.humi)
 
-          dayFour(dayFourForecast.dateFour, `http://openweathermap.org/img/wn/${dayFourForecast.icon}.png`, dayFourForecast.temp, dayFourForecast.humi)
+          dayFour(dayFourForecast.dateFour, `https://openweathermap.org/img/wn/${dayFourForecast.icon}.png`, dayFourForecast.temp, dayFourForecast.humi)
 
-          dayFive(dayFiveForecast.dateFive, `http://openweathermap.org/img/wn/${dayFiveForecast.icon}.png`, dayFiveForecast.temp, dayFiveForecast.humi)
+          dayFive(dayFiveForecast.dateFive, `https://openweathermap.org/img/wn/${dayFiveForecast.icon}.png`, dayFiveForecast.temp, dayFiveForecast.humi)
 
         }
 
@@ -124,7 +124,7 @@ var cities = [];
         document.querySelector('#humidity').innerHTML = hum
         document.querySelector('#windSpeed').innerHTML = wind
         document.querySelector('#UVIndex').innerHTML = uv
-        document.querySelector('#icon').src = `http://openweathermap.org/img/wn/${icon}.png`
+        document.querySelector('#icon').src = `https://openweathermap.org/img/wn/${icon}.png`
 
       }
 
@@ -186,7 +186,7 @@ var cities = [];
         var city = event.target.innerHTML;
         document.querySelector('#txtCity').value = city
         document.querySelector('#cityName').innerHTML = city
-        var cityApi = await fetch( `http://api.openweathermap.org/data/2.5/weather?q=${encodeURI(city)}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
+        var cityApi = await fetch( `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(city)}&appid=c18d1c67b725426cb4da6690f0f0a919`).then( r=>r.json() )
         var cityLon = cityApi.coord.lon;
         var cityLat = cityApi.coord.lat;
         getCityData(cityLon, cityLat);
